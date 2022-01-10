@@ -5,25 +5,27 @@ from typing import Tuple
 def create(degree: int=2) -> np.ndarray:
     """Creates random polynomial of given degree
 
-
     Keyword arguments:
-    degree -- degree of the polynomial
+    degree: degree of the polynomial
 
-    low -- low boundary of coefficients range
+    low: low boundary of coefficients range
 
-    high -- high boundary of coefficients range
+    high: high boundary of coefficients range
 
-    Return: np.ndarray containing coefficients of created polynomial
-    
     Returned array should be interpreted as a coefficients from 
     degree-1 to 0. Ie.:
     coeffs = np.ndarray([4, 5, 1])
 
     f(x) = 4 * x ^ 2 + 5 * x ^ 1 + 1 * x ^ 0
 
+    Return: np.ndarray containing coefficients of created polynomial
     """
     size = degree + 1
+
+    # linspace is added to emphasize the coefficent of the highest degree,
+    # so that the slopes of the graph would be nice
     coefs = np.random.random_sample(size=size) * np.linspace(10, 1, num=size) + np.linspace(1, 0, size)
+
     return coefs
 
 def get_values_in_domain(
@@ -34,7 +36,8 @@ def get_values_in_domain(
     """Gets values of given polynomial in given (low, high) domain (low and high included)
     
     Keyword arguments:
-    polynomial -- np.ndarray with coefficients describing this polynomial
+    polynomial: np.ndarray with coefficients describing this polynomial  
+
     Return: Tuple containing (values, domain)
     """
     step = abs(low - high) / probes
@@ -54,12 +57,11 @@ def get_values_in_domain(
 
 def get_value(polynomial: np.ndarray, x: np.float32) -> np.float32:
     """Calculates value of given polynomial in point x
-
     
     Keyword arguments:
-    polynomial -- np.ndarray with coefficients describing this polynomial
+    polynomial: np.ndarray with coefficients describing this polynomial
 
-    x -- np.float32 x value to calculate polynomial value
+    x: np.float32 x value to calculate polynomial value
 
     Return: np.float32 value of given polynomial in point x 
     """
@@ -78,8 +80,8 @@ def get_derivative(polynomial: np.ndarray) -> np.ndarray:
     """Calculates derivative of given polynomial
     
     Keyword arguments:
-    polynomial -- polynomial in form of np.ndarray with coefficients in order from 
-    degree-1 to 0. Ie. [4, 5, 1] -> f(x) = 4 * x ^ 2 + 5 * x ^ 1 + 1 * x ^ 0
+    polynomial: polynomial in form of np.ndarray with coefficients in order from 
+        degree-1 to 0. Ie. [4, 5, 1] -> f(x) = 4 * x ^ 2 + 5 * x ^ 1 + 1 * x ^ 0
 
     Then derivative of [4, 5, 1] will be [8, 5] -> f'(x) = 8 * x + 5
 
@@ -99,11 +101,10 @@ def get_multivariable_polynomial_values(poly_1: np.ndarray, poly_2: np.ndarray, 
     """Returns matrix representing values of sum of the two given polynomials
     
     Keyword arguments:
-    poly_1, poly_2  --  polynomials to get value from
-    domain  --  tuple of domain boundaries
+    poly_1, poly_2:  polynomials to get value from
+    domain:  tuple of domain boundaries
 
-
-    Return: 2 dimensional np.ndarray with sum of these polynomials in given domain
+    Return: np.ndarray with two dimensional shape containing sum of these polynomials in given domain
     """
     domain_low, domain_high = domain
     
@@ -120,6 +121,13 @@ def get_multivariable_polynomial_values(poly_1: np.ndarray, poly_2: np.ndarray, 
 
     return Z
 
-def get_multivariable_polynomial_value(poly_1, poly_2, x, y):
-
+def get_multivariable_polynomials_sum(poly_1: np.ndarray, poly_2: np.ndarray, x: np.float32, y: np.float32):
+    """Returns sum of two polynomials of different variables.
+    
+    Keyword arguments:
+    poly_1, poly_2: np.ndarrays of coefficients describing polynomials
+    x, y: np.float32 variables to calculate values of the polynomials
+    Return: np.float32 sum of the polynomials values for the given variables
+    """
+    
     return get_value(poly_1, x) + get_value(poly_2, y)
