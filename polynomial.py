@@ -28,33 +28,6 @@ def create(degree: int=2) -> np.ndarray:
 
     return coefs
 
-def get_values_in_domain(
-        polynomial: np.ndarray, 
-        low: int=-5, 
-        high: int=5, 
-        probes: int=1000) -> Tuple[np.ndarray, np.ndarray]:
-    """Gets values of given polynomial in given (low, high) domain (low and high included)
-    
-    Keyword arguments:
-    polynomial: np.ndarray with coefficients describing this polynomial  
-
-    Return: Tuple containing (values, domain)
-    """
-    step = abs(low - high) / probes
-
-    values = np.zeros(shape=probes+1, dtype=np.float32)
-    domain = np.linspace(start=low, stop=high, num=probes + 1)
-
-    x = low
-    id = 0
-
-    for x in domain:
-        values[id] = get_value(polynomial, x)
-        x += step
-        id += 1
-
-    return values, domain
-
 def get_value(polynomial: np.ndarray, x: np.float32) -> np.float32:
     """Calculates value of given polynomial in point x
     
@@ -75,6 +48,7 @@ def get_value(polynomial: np.ndarray, x: np.float32) -> np.float32:
         current_id += 1
 
     return value
+
 
 def get_derivative(polynomial: np.ndarray) -> np.ndarray:
     """Calculates derivative of given polynomial
@@ -97,31 +71,8 @@ def get_derivative(polynomial: np.ndarray) -> np.ndarray:
 
     return derivative
 
-def get_multivariable_polynomial_values(poly_1: np.ndarray, poly_2: np.ndarray, domain: Tuple[int, int]) -> np.ndarray:
-    """Returns matrix representing values of sum of the two given polynomials
-    
-    Keyword arguments:
-    poly_1, poly_2:  polynomials to get value from
-    domain:  tuple of domain boundaries
 
-    Return: np.ndarray with two dimensional shape containing sum of these polynomials in given domain
-    """
-    domain_low, domain_high = domain
-    
-    values_1, _ = get_values_in_domain(
-        polynomial=poly_1, low=domain_low, high=domain_high)
-    values_2, _ = get_values_in_domain(
-        polynomial=poly_2, low=domain_low, high=domain_high)
-    
-    Z = np.zeros(shape=(1001, 1001))
-
-    for i in range(Z.shape[0]):
-        for j in range(Z.shape[1]):
-            Z[i, j] = values_1[i] + values_2[j]
-
-    return Z
-
-def get_multivariable_polynomials_sum(poly_1: np.ndarray, poly_2: np.ndarray, x: np.float32, y: np.float32):
+def get_multivariable_polynomials_sum(poly_1: np.ndarray, poly_2: np.ndarray, x: np.float32, y: np.float32) -> np.float32:
     """Returns sum of two polynomials of different variables.
     
     Keyword arguments:
