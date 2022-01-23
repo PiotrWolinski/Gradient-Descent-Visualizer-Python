@@ -20,8 +20,7 @@ def plot_3D_gradient_descent(
     low = floor(domain[0])
     high = ceil(domain[1])
 
-    domain_size = (high - low) * values_per_unit + 1
-    print(domain_size)
+    domain_size = abs(high - low) * values_per_unit + 1
 
     X = np.linspace(low, high, domain_size)
     Y = np.linspace(low, high, domain_size)
