@@ -1,5 +1,5 @@
 from math import ceil, floor
-from typing import List, Tuple
+from typing import List
 
 import numpy as np
 from matplotlib import cm
@@ -37,7 +37,8 @@ def plot_3D_gradient_descent(
     descent_y = [x[1] for x in descent_path]
     descent_z = [x[2] for x in descent_path]
 
-    ax.scatter(descent_x, descent_y, descent_z, color=['red'], s=50)
+    ax.scatter(descent_x, descent_y, descent_z, c='red', s=30, lw=0)
+
     ax.plot(descent_x, descent_y, descent_z, 'r')
 
     ax.plot_surface(X, Y, Z, cmap=cm.coolwarm,
@@ -57,8 +58,8 @@ def create_descent_path(
         gradient_weight: float,
         steps: int) -> np.ndarray:
 
-    start_x = domain[0] + np.random.rand() * (domain[-1] - domain[0])
-    start_y = domain[0] + np.random.rand() * (domain[-1] - domain[0])
+    start_x = domain[0] + np.random.rand() * (domain[1] - domain[0])
+    start_y = domain[0] + np.random.rand() * (domain[1] - domain[0])
 
     start_value = poly.get_multivariable_polynomials_sum(
         poly_x, poly_y, start_x, start_y)
@@ -113,7 +114,7 @@ def main() -> None:
 
     # Specify domain in which surface with created path
     # should be plotted. 
-    domain = (-2, 2)
+    domain = (-3, 3)
 
     # Check if domain given meets the criteria for a nice graph
     validate_domain(domain)
@@ -128,7 +129,7 @@ def main() -> None:
     gradient_weight = 0.02
 
     # Amount of steps in the descent path
-    steps = 5
+    steps = 7
 
     # Create descent path based on the variables created eariler
     descent_path = create_descent_path(

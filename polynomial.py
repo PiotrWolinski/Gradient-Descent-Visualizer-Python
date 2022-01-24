@@ -1,5 +1,4 @@
 import numpy as np
-from typing import Tuple
 
 
 def create(degree: int=2) -> np.ndarray:
