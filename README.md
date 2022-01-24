@@ -21,5 +21,8 @@ Written in `python 3.9`, but any version supporting `typing` will be fine.
 
 ****
 
-### Run:  
+### Run visualization:  
 `make run`
+
+### Run tests:
+`make tests`
