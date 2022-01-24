@@ -3,7 +3,7 @@
 Gradient Descent</a> Visualizer</h1>
 
 <p align="center">
-  <img src="graph.jpg" />
+  <img src="graph.png" />
 </p>  
 
 ******
